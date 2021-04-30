@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+void fill_progressive(std::vector<int>& vec)
+{
+    for (int i = 0; i < vec.size(); i++)
+    {
+        vec[i] = i + 1;
+    }
+}
+
+void print_vector(const std::vector<int>& vec)
+{
+    for (auto& i : vec)
+    {
+        std::cout << i << ", ";
+    }
+}
+
+int main()
+{
+    std::vector<int> vec(6);
+    fill_progressive(vec);
+    print_vector(vec);
+    return 0;
+}

@@ -1,0 +1,52 @@
+#include <iostream>
+
+void draw_square(const int& side_length, const bool& left_diagonal = false, const bool& right_diagonal = false)
+{
+	//top border
+	for (int i = 0; i < side_length; i++)
+	{
+		std::cout << "#";
+	}
+
+	std::cout << "\n";
+
+	//center
+	for (int i = 0; i < side_length-2; i++)
+	{
+		std::cout << "#";
+
+		for (int j = 0; j < side_length - 2; j++)
+		{
+			if (left_diagonal && i == j)
+			{
+				std::cout << "#";
+			}
+			else if (right_diagonal && i == side_length - 3 - j)
+			{
+				std::cout << "#";
+			}
+			else
+			{
+				std::cout << " ";
+			}
+		}
+
+		std::cout << "#\n";
+	}
+
+	//bottom border
+	for (int i = 0; i < side_length; i++)
+	{
+		std::cout << "#";
+	}
+
+	std::cout << "\n";
+}
+
+int main()
+{
+	draw_square(4);
+	draw_square(6, true, false);
+	draw_square(7, true, true);
+	return 0;
+}

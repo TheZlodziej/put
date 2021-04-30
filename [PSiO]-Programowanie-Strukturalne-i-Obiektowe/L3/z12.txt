@@ -1,0 +1,9 @@
+void usun_zaczynajace_sie_od(Koszyk& koszyk, char litera)
+{
+	koszyk.erase(std::remove_if(koszyk.begin(), koszyk.end(),
+		[litera](const Roslina& roslina)
+		{
+			return (roslina.nazwa[0] == litera);
+		}
+	), koszyk.end());
+}

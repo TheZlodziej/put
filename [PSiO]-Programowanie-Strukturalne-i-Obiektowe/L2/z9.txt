@@ -1,0 +1,111 @@
+#include <iostream>	
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <string>
+
+struct Weather {
+	std::string date;
+	std::string time;
+	double sound_speed;
+	double sound_temp;
+	double pressure;
+	double temp;
+	double humidity;
+	double compass;
+	double vel;
+	double wind_vel;
+	double dir;
+	double height;
+	double inside_temp;
+};
+
+std::vector<std::string> split(const std::string& str, const char& delim = ' ')
+{
+	std::vector<std::string> words;
+	std::string temp = "";
+	for (int i = 0; i <= str.length(); i++)
+	{
+		if (i == str.length() || str[i] == delim)
+		{
+			words.push_back(temp);
+			temp = "";
+		}
+		else
+		{
+			temp += str[i];
+		}
+	}
+
+	return words;
+}
+
+Weather get_data(const std::string& str)
+{
+	std::vector<std::string> data = split(str, ',');
+
+	return {
+		data[0], 
+		data[1], 
+		std::stod(data[2]), 
+		std::stod(data[3]), 
+		std::stod(data[4]), 
+		std::stod(data[5]), 
+		std::stod(data[6]), 
+		std::stod(data[7]), 
+		std::stod(data[8]), 
+		std::stod(data[9]), 
+		std::stod(data[10]), 
+		std::stod(data[11]),
+		std::stod(data[12]) 
+	};
+}
+
+std::vector<Weather> load_data(const std::string& filename)
+{
+	std::fstream file(filename, std::ios::in);
+	std::vector<Weather> ret;
+
+	if (file.good())
+	{
+		std::string temp;
+		std::getline(file, temp); // ignore first line (headers)
+
+		while (!file.eof())
+		{
+			std::getline(file, temp);
+			if (temp != "")
+			{
+				ret.push_back(get_data(temp));
+			}
+		}
+	}
+
+	file.close();
+	return ret;
+}
+
+bool compare_weather_by_temp(const Weather& w1, const Weather& w2)
+{
+	return (w1.temp < w2.temp);
+}
+
+void show_min_max_med(std::vector<Weather>& data)
+{
+	std::sort(data.begin(), data.end(), compare_weather_by_temp);
+	double min_temp = data[0].temp;
+	double max_temp = data[data.size() - 1].temp;
+	double median_temp = data[data.size() / 2].temp;
+	if (data.size() % 2 == 0)
+	{
+		median_temp = (data[data.size() / 2].temp + data[data.size() / 2 + 1].temp) / 2;
+	}
+	std::cout << "min temp: " << min_temp << ", max temp: " << max_temp << ", median: " << median_temp;
+}
+
+int main()
+{
+	std::vector<Weather> data = load_data("temp02-2020.csv");
+	show_min_max_med(data);
+	return 0;
+}

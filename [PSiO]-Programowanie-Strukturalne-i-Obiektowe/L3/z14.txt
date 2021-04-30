@@ -1,0 +1,44 @@
+bool operator<(const Roslina& r1, const Roslina& r2)
+{
+	if (r1.typ == r2.typ)
+	{
+		return (r1.nazwa < r2.nazwa);
+	}
+
+	return (r1.typ < r2.typ);
+}
+
+bool czy_rosliny_takie_same(const Roslina& r1, const Roslina& r2)
+{
+	return ( (r1.nazwa == r2.nazwa) && (r1.typ == r2.typ) );
+}
+
+Koszyk koszyk_wspolne(Koszyk koszyk1, Koszyk koszyk2)
+{
+	Koszyk ret;
+
+	std::sort(koszyk1.begin(), koszyk1.end());
+	std::sort(koszyk2.begin(), koszyk2.end());
+
+	std::set_intersection(koszyk1.begin(), koszyk1.end(),
+		koszyk2.begin(), koszyk2.end(),
+		std::back_inserter(ret)
+	);
+
+	return ret;
+}
+
+Koszyk czym_sie_roznia_koszyki(Koszyk koszyk1, Koszyk koszyk2)
+{
+	Koszyk ret;
+
+	std::sort(koszyk1.begin(), koszyk1.end());
+	std::sort(koszyk2.begin(), koszyk2.end());
+
+	std::set_difference(koszyk1.begin(), koszyk1.end(),
+		koszyk2.begin(), koszyk2.end(),
+		std::back_inserter(ret)
+		);
+
+	return ret;
+}

@@ -1,0 +1,25 @@
+#include <iostream>	
+#include <string>
+#include <algorithm>
+
+std::string find_and_replace(std::string str, const std::string& a_phrase, const std::string& b_phrase)
+{
+	std::size_t idx = str.find(a_phrase);
+
+	while (idx != std::string::npos)
+	{
+		str.replace(idx, a_phrase.length(), b_phrase);
+		idx = str.find(a_phrase, idx + 1);
+	}
+
+	return str;
+}
+
+int main()
+{
+	std::string input = "Ala ma kota, kot zjadl Ale!";
+	std::string output = find_and_replace(input, "kot", "hefalump");
+	// wynik: "Ala ma hefalumpa, hefalump zjadl Ale!"
+	std::cout << output;
+	return 0;
+}

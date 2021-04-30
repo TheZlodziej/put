@@ -1,0 +1,7 @@
+bool operator<(const Roslina& r1, const Roslina& r2)
+{
+	if(r1.typ == r2.typ)
+		return (r1.nazwa < r2.nazwa);
+
+	return (r1.typ < r2.typ);
+}

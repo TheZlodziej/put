@@ -1,0 +1,34 @@
+#include <iostream>	
+#include <vector>
+
+std::vector<std::string> split(const std::string& str, const char& delim = ' ')
+{
+	std::vector<std::string> words;
+	std::string temp = "";
+	for (int i = 0; i <= str.length(); i++)
+	{
+		if (i == str.length() || str[i] == delim)
+		{
+			words.push_back(temp);
+			temp = "";
+		}
+		else
+		{
+			temp += str[i];
+		}
+	}
+
+	return words;
+}
+
+int main()
+{
+	std::string csv = "Mount Everest,8848,1953";
+	std::vector<std::string> data = split(csv, ','); // wynik: {"Mount Everest", "8848", "1953"}
+	
+	for (auto& s : data)
+	{
+		std::cout << s << "\n";
+	}
+	return 0;
+}

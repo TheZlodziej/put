@@ -1,0 +1,31 @@
+std::string typ_rosliny_na_string(TypRosliny typ)
+{
+	switch (typ)
+	{
+	case TypRosliny::Owoc:
+		return "Owoc";
+
+	case TypRosliny::Warzywo:
+		return "Warzywo";
+
+	default:
+		return "";
+	}
+}
+
+std::ostream& operator<<(std::ostream& out, const Roslina& roslina) 
+{ 
+	out << "\t{ TYP: " << typ_rosliny_na_string(roslina.typ) << ", NAZWZA: " << roslina.nazwa << " }";
+	return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const Koszyk& koszyk) 
+{
+	out << "KOSZYK\n{\n";
+	for (const auto& r : koszyk)
+	{
+		out << r <<"\n";
+	}
+	out << "}";
+	return out;
+}

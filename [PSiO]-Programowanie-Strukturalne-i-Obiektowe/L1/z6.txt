@@ -1,0 +1,30 @@
+#include <iostream>
+
+#define M_PI 3.14159265358979323846
+
+double pi_leibniz(double stop_at)
+{
+    double sum = 0;
+    double i = 0;
+    double el;
+    
+    do
+    {
+        el = std::pow(-1.0, i)/(2.0*i + 1.0);
+        sum += el;
+        i++;
+    } while(std::abs(el) > stop_at);
+
+    return 4 * sum;
+}
+
+int main()
+{
+    double stop_at = 0.000000001;
+    double pi_approx = pi_leibniz(stop_at);
+
+    std::cout << pi_approx << std::endl;
+    std::cout << "error: " << pi_approx - M_PI << std::endl;
+   
+    return 0;
+}

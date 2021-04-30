@@ -1,0 +1,35 @@
+bool same_owoce(const Koszyk& koszyk)
+{
+	auto owoce = [](Roslina roslina) {return (roslina.typ == TypRosliny::Owoc); };
+	return std::all_of(koszyk.begin(), koszyk.end(), owoce);
+}
+
+bool same_warzywa(const Koszyk& koszyk)
+{
+	auto warzywa = [](Roslina roslina) {return (roslina.typ == TypRosliny::Warzywo); };
+	return std::all_of(koszyk.begin(), koszyk.end(), warzywa);
+}
+
+bool co_najmniej_owoc(const Koszyk& koszyk)
+{
+	auto owoce = [](Roslina roslina) {return (roslina.typ == TypRosliny::Owoc); };
+	return std::any_of(koszyk.begin(), koszyk.end(), owoce);
+}
+
+bool co_najmniej_warzywo(const Koszyk& koszyk)
+{
+	auto warzywa = [](Roslina roslina) {return (roslina.typ == TypRosliny::Warzywo); };
+	return std::any_of(koszyk.begin(), koszyk.end(), warzywa);
+}
+
+bool zadnego_warzywa(const Koszyk& koszyk)
+{
+	auto warzywa = [](Roslina roslina) {return (roslina.typ == TypRosliny::Warzywo); };
+	return std::none_of(koszyk.begin(), koszyk.end(), warzywa);
+}
+
+bool zadnego_owocu(const Koszyk& koszyk)
+{
+	auto owoce = [](Roslina roslina) {return (roslina.typ == TypRosliny::Owoc); };
+	return std::none_of(koszyk.begin(), koszyk.end(), owoce);
+}

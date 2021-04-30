@@ -1,0 +1,24 @@
+std::string to_lower_case(const std::string& str)
+{
+	std::string ret = "";
+
+	for (const auto& c : str)
+	{
+		ret+=std::tolower(c);
+	}
+
+	return ret;
+}
+
+bool czy_jest_gruszka(const Koszyk& koszyk) 
+{
+	auto it = std::find_if(koszyk.begin(), koszyk.end(), [](Roslina roslina) { return (to_lower_case(roslina.nazwa) == "gruszka"); });
+	if (it != koszyk.end())
+	{
+		std::cout << "\nJEST GRUSZKA <3\n";
+		return true;
+	}
+
+	std::cout << "\nNIE MA GRUSZKI :(\n";
+	return false;
+}

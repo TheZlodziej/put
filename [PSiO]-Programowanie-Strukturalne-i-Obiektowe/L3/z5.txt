@@ -1,0 +1,15 @@
+void sort_ascend(std::vector<int>& arr)
+{
+	std::sort(arr.begin(), arr.end());
+}
+
+void sort_descend(std::vector<int>& arr)
+{
+	std::sort(arr.begin(), arr.end(), std::greater<>());
+}
+
+void sort_abs(std::vector<int>& arr)
+{
+	auto comp = [](int a, int b) { return ( std::abs(a) > std::abs(b) ); };
+	std::sort(arr.begin(), arr.end(), comp);
+}

@@ -1,0 +1,42 @@
+#include <iostream>	
+#include <vector>
+#include <cmath>
+
+int binary_search(std::vector<double> arr, double target, int start_idx=0, int end_idx=-1, double precision = 0.00001)
+{
+	if (end_idx == -1)
+	{
+		end_idx = arr.size()-1;
+	}
+
+	int curr_idx = (start_idx + end_idx) / 2;
+	double val = arr[curr_idx];
+
+	if ( std::abs(val - target) < precision)
+	{
+		return curr_idx;
+	}
+
+	if (start_idx == end_idx)
+	{
+		return -1;
+	}
+
+	if (val > target)
+	{
+		return binary_search(arr, target, 0, curr_idx);
+	}
+
+	if (val < target)
+	{
+		return binary_search(arr, target, curr_idx + 1, end_idx);
+	}
+}
+
+int main()
+{
+	std::vector<double> test = { -99.2, -10, 1, 12, 44.3, 100, 123.02};
+	int idx = binary_search(test, 123.02);
+	std::cout << idx;
+	return 0;
+}

@@ -1,0 +1,55 @@
+#include <iostream>	
+
+std::string to_lower_case(const std::string& str)
+{
+	std::string ret="";
+
+	for (auto& c:str)
+	{
+		if (c <= 'Z' && c >= 'A')
+		{
+			ret += (c + ('a'-'A'));
+		}
+		else
+		{
+			ret += c;
+		}
+	}
+
+	return ret;
+}
+
+std::string remove_spaces(const std::string& str)
+{
+	std::string ret = "";
+	for (auto& c : str)
+	{
+		if (c != ' ')
+		{
+			ret += c;
+		}
+	}
+	return ret;
+}
+
+bool is_palindrome(const std::string& str)
+{
+	std::string new_str = to_lower_case(remove_spaces(str));
+	
+	for (int i = 0; i < new_str.length() / 2; i++)
+	{
+		if (new_str[i] != new_str[new_str.length() - 1 - i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+int main()
+{
+	std::string sentence = "Never odd or even";
+	std::cout<<is_palindrome(sentence); // true
+	return 0;
+}

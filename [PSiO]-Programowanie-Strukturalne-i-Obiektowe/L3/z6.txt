@@ -1,0 +1,4 @@
+int count_els(const std::vector<int>& arr, int el)
+{
+	return std::count(arr.begin(), arr.end(), el);
+}

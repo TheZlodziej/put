@@ -1,0 +1,27 @@
+#include <iostream>	
+#include <vector>
+
+std::vector<size_t> find_all(const std::string& str, const char& chr)
+{
+	std::vector<size_t> ret;
+	for (size_t i =0; i<str.length(); i++)
+	{
+		if (str[i] == chr)
+		{
+			ret.push_back(i);
+		}
+	}
+
+	return ret;
+}
+
+int main()
+{
+	std::string input = "Ala ma kota";
+	std::vector<size_t> pos = find_all(input, 'a'); // wynik: {2, 5, 10}
+	for (auto& t : pos)
+	{
+		std::cout << t << ", ";
+	}
+	return 0;
+}

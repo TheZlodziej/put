@@ -1,0 +1,19 @@
+#include <iostream>
+
+uint64_t factorial(uint64_t n)
+{
+    uint64_t ret = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        ret *= i;
+    }
+
+    return ret;
+}
+
+int main()
+{
+    uint64_t result = factorial(15);
+    std::cout << result << std::endl; // wynik: 1307674368000
+    return 0;
+}

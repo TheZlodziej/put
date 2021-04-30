@@ -1,0 +1,2 @@
+#include<bits/stdc++.h>
+using namespace std;int main(){string s;cin>>s;int l=0,x=s.size(),c=0,f=0,z;if(s!="00")while(x--)if(s[x]=='1')c++;else if(!f)f=1,z=x;else l=max(l,c),x=z,c=f=0;cout<<max(c,l)+1;}

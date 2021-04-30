@@ -1,0 +1,17 @@
+int zlicz_owoce(const Koszyk& koszyk) {
+	return std::count_if(koszyk.begin(), koszyk.end(),
+		[](const Roslina& roslina) 
+		{ 
+			return (roslina.typ == TypRosliny::Owoc); 
+		}
+	);
+}
+
+int zlicz_warzywa(const Koszyk& koszyk) {
+	return std::count_if(koszyk.begin(), koszyk.end(),
+		[](const Roslina& roslina)
+		{
+			return (roslina.typ == TypRosliny::Warzywo);
+		}
+	);
+}

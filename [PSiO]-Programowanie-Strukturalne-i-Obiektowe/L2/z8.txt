@@ -1,0 +1,167 @@
+#include <iostream>	
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <string>
+
+struct ExchangeRate
+{
+	std::string date;
+	double usd;
+	double eur;
+	std::string table_id;
+};
+
+std::vector<std::string> split(const std::string& str, const char& delim = ' ')
+{
+	std::vector<std::string> words;
+	std::string temp = "";
+	for (int i = 0; i <= str.length(); i++)
+	{
+		if (i == str.length() || str[i] == delim)
+		{
+			words.push_back(temp);
+			temp = "";
+		}
+		else
+		{
+			temp += str[i];
+		}
+	}
+
+	return words;
+}
+
+ExchangeRate get_data(const std::string& str)
+{
+	std::vector<std::string> data = split(str, ',');
+	ExchangeRate ret = { data[0], std::stod(data[1]), std::stod(data[2]), data[3] };
+	return ret;
+}
+
+std::vector<ExchangeRate> load_data(const std::string& filename)
+{
+	std::fstream file(filename, std::ios::in);
+	std::vector<ExchangeRate> rates;
+	if (file.good())
+	{
+		std::string temp;
+		std::getline(file, temp); //skip first line
+
+		while (!file.eof())
+		{
+			std::getline(file, temp);
+			if (temp != "")
+			{
+				rates.push_back(get_data(temp));
+			}
+		}
+	}
+	file.close();
+	return rates;
+}
+
+bool comp_eur(const ExchangeRate& ex1, const ExchangeRate& ex2)
+{
+	return (ex1.eur > ex2.eur);
+}
+
+bool comp_usd(ExchangeRate& ex1, const ExchangeRate& ex2)
+{
+	return (ex1.usd > ex2.usd);
+}
+
+void sort_usd(std::vector<ExchangeRate>& rates)
+{
+	for (int i = 0; i < rates.size(); i++)
+	{
+		for (int j = i; j < rates.size(); j++)
+		{
+			if (comp_usd(rates[i], rates[j]))
+			{
+				ExchangeRate temp = rates[i];
+				rates[i] = rates[j];
+				rates[j] = temp;
+			}
+		}
+	}
+}
+
+void sort_eur(std::vector<ExchangeRate>& rates)
+{
+	for (int i = 0; i < rates.size(); i++)
+	{
+		for (int j = i; j < rates.size(); j++)
+		{
+			if (comp_eur(rates[i], rates[j]))
+			{
+				ExchangeRate temp = rates[i];
+				rates[i] = rates[j];
+				rates[j] = temp;
+			}
+		}
+	}
+}
+
+void show_top_10_eur(std::vector<ExchangeRate> rates)
+{
+	sort_eur(rates);
+	std::cout << "TOP 10 EUR RATES:\n";
+	for (int i=rates.size()-11; i < rates.size(); i++)
+	{
+		std::cout << rates[i].date << " " << rates[i].eur << "\n";
+	}
+}
+
+void show_top_10_usd(std::vector<ExchangeRate> rates)
+{
+	sort_usd(rates);
+	std::cout << "TOP 10 USD RATES:\n";
+	for (int i = rates.size() - 11; i < rates.size(); i++)
+	{
+		std::cout << rates[i].date << " " << rates[i].usd << "\n";
+	}
+}
+
+int binary_search_usd(std::vector<ExchangeRate> rates, double usd_target, int start_idx = 0, int end_idx = -1, double precision = 0.0001)
+{
+	if (end_idx == -1)
+	{
+		sort_usd(rates);
+		end_idx = rates.size() - 1;
+	}
+
+	int curr_idx = (start_idx + end_idx) / 2;
+	double val = rates[curr_idx].usd;
+
+	if (std::abs(val - usd_target) < precision)
+	{
+		return curr_idx;
+	}
+
+	if (start_idx == end_idx)
+	{
+		return -1;
+	}
+
+	if (val > usd_target)
+	{
+		return binary_search_usd(rates, usd_target, 0, curr_idx);
+	}
+
+	if (val < usd_target)
+	{
+		return binary_search_usd(rates, usd_target, curr_idx + 1, end_idx);
+	}
+}
+
+int main()
+{
+	std::vector<ExchangeRate> rates = load_data("kursy_usd_eur.csv");
+	show_top_10_eur(rates);
+	show_top_10_usd(rates);
+
+	int idx = binary_search_usd(rates, 3.9011);
+	std::cout << "\nKurs USD: 3.9011, data: " << rates[idx].date << ", idx: " << idx;
+	return 0;
+}

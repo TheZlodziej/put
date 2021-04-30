@@ -1,0 +1,44 @@
+#include <iostream>
+
+bool is_prime(const int& n)
+{
+    if (n == 0 || n == 1)
+    {
+        return false;
+    }
+
+    if (n % 2 == 0 && n != 2)
+    {
+        return false;
+    }
+
+    for (int i = 3; i*i <= n; i+=2)
+    {
+        if (n % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main()
+{
+    // Jaki jest najwiekszy potencjalny dzielnik, jaki warto sprawdzac dla danej liczby?
+    // odp na pytanie: sqrt(n)
+
+    int min, max;
+    std::cout << "Po spacji podaj dolny i gorny zakres: ";
+    std::cin >> min >> max;
+
+    for (int i = 0; i <= max; i++)
+    {
+        if (is_prime(i))
+        {
+            std::cout << i << " ";
+        }
+    }
+
+    return 0;
+}

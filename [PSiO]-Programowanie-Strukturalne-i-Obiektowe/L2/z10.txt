@@ -1,0 +1,87 @@
+#include <iostream>	
+#include <cmath>
+#include <vector>
+
+double poly(std::vector<double> coeffs, double arg)
+{
+	double ret = 0;
+
+	for (int i = 0, n = coeffs.size() - 1; i < coeffs.size(); i++, n--)
+	{
+		ret += coeffs[i] * std::pow(arg, n);
+	}
+
+	return ret;
+}
+
+double zero_r(double x_min, double x_max, std::vector<double> coeffs, double precision = 1e-9)
+{
+	double min = poly(coeffs, x_min);
+
+	double x_mid = (x_min + x_max) / 2;
+	double mid = poly(coeffs, x_mid);
+
+	double max = poly(coeffs, x_max);
+
+	if (std::abs(mid) < precision)
+	{
+		return x_mid;
+	}
+
+	if (min * mid < 0)
+	{
+		return zero_r(x_min, x_mid, coeffs);
+	}
+
+	if (mid * max < 0)
+	{
+		return zero_r(x_mid, x_max, coeffs);
+	}
+}
+
+std::vector<double> zero(double x_min, double x_max, std::vector<double> coeffs, double step, double precision=0.000001)
+{
+	std::vector<double> ret;
+	
+	for (double i = x_min; i <= x_max; i += step)
+	{
+		if (std::abs(poly(coeffs, i)) < precision)
+		{
+			ret.push_back(i);
+		}
+
+		if (poly(coeffs, i - step) * poly(coeffs, i) < 0 && i > x_min)
+		{
+			ret.push_back(zero_r(i - step, i, coeffs));
+		}
+	}
+
+	return ret;
+}
+
+std::vector<double> get_poly(int n)
+{
+	std::vector<double> ret;
+
+	while (n--)
+	{
+		double temp;
+		std::cin >> temp;
+		ret.push_back(temp);
+	}
+
+	return ret;
+}
+
+int main()
+{
+	std::vector<double> fx = get_poly(4);
+	std::vector<double> fx0 = zero(-10.0, 10.0, fx, 0.1);
+
+	for (auto& z : fx0)
+	{
+		std::cout << "x=" << z << "\t";
+	}
+
+	return 0;
+}

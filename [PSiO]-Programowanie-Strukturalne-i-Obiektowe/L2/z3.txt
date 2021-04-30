@@ -1,0 +1,35 @@
+#include <iostream>	
+#include <vector>
+
+std::string find_longest_word(const std::string& str)
+{
+	std::string longest_word = "";
+	std::string word="";
+
+	for (int i = 0; i <= str.length(); i++)
+	{
+		if (str[i] == ' ' || i == str.length())
+		{
+			if (word.length() > longest_word.length())
+			{
+				longest_word = word;
+			}
+
+			word = "";
+		}
+		else
+		{
+			word += str[i];
+		}
+	}
+
+	return longest_word;
+}
+
+int main()
+{
+	std::string input = "Ala ma kota kot jezdzi na Roombie";
+	std::string longest = find_longest_word(input); // "Roombie"
+	std::cout << longest;
+	return 0;
+}

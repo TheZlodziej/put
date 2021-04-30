@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+
+enum class TypRosliny { Owoc, Warzywo };
+
+struct Roslina {
+	TypRosliny typ;
+	std::string nazwa;
+};
+
+using Koszyk = std::vector<Roslina>;
+
+std::string typ_rosliny_na_string(TypRosliny typ)
+{
+	switch (typ)
+	{
+	case TypRosliny::Owoc:
+		return "Owoc";
+
+	case TypRosliny::Warzywo:
+		return "Warzywo";
+
+	default:
+		return "";
+	}
+}
+
+std::string wez_nazwe_rosliny(TypRosliny typ)
+{
+	std::string nazwa;
+	std::string typRosliny = typ_rosliny_na_string(typ);
+	std::cout << "Podaj nazwe rosliny typu " << typRosliny <<": ";
+	std::cin >> nazwa;
+	return nazwa;
+}
+
+void wloz_do_koszyka(Koszyk& koszyk)
+{
+	std::vector<TypRosliny> typy = { TypRosliny::Owoc, TypRosliny::Warzywo };
+	for(const auto& t:typy)
+	{
+		koszyk.push_back({ t, wez_nazwe_rosliny(t) });
+	}
+}
+
+int main()
+{
+	Koszyk koszyk;
+	wloz_do_koszyka(koszyk);
+	return 0;
+}

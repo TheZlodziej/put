@@ -1,0 +1,10 @@
+Koszyk umiesc_w_jednym_koszu(Koszyk k1, Koszyk k2)
+{
+	Koszyk ret;
+
+	std::sort(k1.begin(), k1.end());
+	std::sort(k2.begin(), k2.end());
+	std::set_union(k1.begin(), k1.end(), k2.begin(), k2.end(), std::back_inserter(ret));
+	
+	return ret;
+}
