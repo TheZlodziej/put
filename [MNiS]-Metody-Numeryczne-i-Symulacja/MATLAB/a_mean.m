@@ -1,4 +1,4 @@
 function x = a_mean(data)
-    x = sum(data) * 1/length(data);
+    x = sum(data)./length(data);
 end
 
