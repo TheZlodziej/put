@@ -81,9 +81,27 @@ data_bino = binornd(bino_N, bino_p, 1, n);
 bino_mean = a_mean(data_bino);
 bino_var = var_sample(data_bino);
 
+FX1 = bino_dist(bino_N, X, bino_p);
+FX2 = bino_dist(bino_N, X, bino_mean/bino_N);
+
 dens_fun_hist(data_bino);
-plot(X, bino_dist(bino_N, X, bino_p), "xr"); % with given data
-plot(X, bino_dist(bino_N, X, 1/bino_N*a_mean(data_bino)), "xg"); % estimated
+plot(X, FX1, "xr"); % with given data
+plot(X, FX2, "xg"); % estimated
+
+% stairs
+
+cum_fun_hist(data_bino,8);
+
+Y1 = [];
+Y2 = [];
+
+for i=1:length(X)
+    Y1(i) = sum(FX1(1:i)); 
+    Y2(i) = sum(FX2(1:i));
+end
+
+stairs(X, Y1);
+stairs(X, Y2);
 
 % poiss
 
@@ -95,7 +113,7 @@ poiss_mean = a_mean(data_poiss);
 poiss_var = var_sample(data_poiss);
 
 dens_fun_hist(data_poiss);
-stairs(X, poiss_dist(poiss_lambda, X), "Color", "r");
-stairs(X, poiss_dist(a_mean(data_poiss), X), "Color", "g");
+plot(X, poiss_dist(poiss_lambda, X), "xr");
+plot(X, poiss_dist(a_mean(data_poiss), X), "xg");
 
 

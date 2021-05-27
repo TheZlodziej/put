@@ -1,7 +1,10 @@
-function x = dens_fun_hist(data)
+function x = dens_fun_hist(data, k)
     figure;
     hold on;
-    k = floor(sqrt(length(data)));
+    
+    if ~exist('k','var')
+        k = floor(sqrt(length(data)));
+    end
     
     [counts, edges] = histcounts(data, k, 'Normalization', 'pdf');
     x = histogram("BinEdges", edges, "BinCounts", counts);
