@@ -1,5 +1,1 @@
-> Can I copy your homework?<br>
-
-> Yeah, just change it a bit so it doesn't look obvious<br>
-
-> Ok
+[1st semester, IT]([PI]-Podstawy-Informatyki)
