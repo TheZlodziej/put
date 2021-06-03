@@ -278,7 +278,8 @@ int main()
                 {
                     thor->OdejmijZycie();
                 }
-
+                
+                delete (*postac);
                 postac = postacie.erase(postac);
                 thor->setPosition(srodek_okna);
             }
