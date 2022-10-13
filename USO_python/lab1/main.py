@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 
 def ex21():
-    x1 = 3 ^ 15 - 5
+    x1 = 3 ** 15 - 5
     x2 = np.array([2, 0.5]).T \
         * np.array([[1, 4], [-1, 3]]) \
         * np.array([-1, 3]).T
@@ -36,7 +36,7 @@ def ex32():
             maxs.append(y[i])
         elif y[i] < y[i+1] and y[i] < y[i-1]:
             mins.append(y[i])
-    print("[3.2]\tmaksyma, minima", maxs, mins)
+    print(f"[3.2]\tmaksyma {maxs}, minima {mins}")
 
 
 def ex41(coeffs, min, max, dx):  # find max in min in given range of poly fun given by coeffs
@@ -85,4 +85,4 @@ if __name__ == '__main__':
     print("[4.2]\t[maksyma, minima]", ex41(
         [1, 1, -129], -46, 14, 0.01))
     ex51([1, 1, -129, 171, 1620], -46, 14, 0.01)
-    ex52([1, 1, -129, 171, 1620], -46, 14, 5)
+    ex52([1, 1, -129, 171, 1620], -46, 14, 0.01)
