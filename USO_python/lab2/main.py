@@ -1,7 +1,7 @@
 from scipy.integrate import solve_ivp
-from scipy.signal import step, TransferFunction, StateSpace, impulse, tf2ss, ss2tf
+from scipy.signal import step, TransferFunction, StateSpace, impulse, tf2ss, ss2tf, lsim2, bode
 from matplotlib import pyplot as plt
-from numpy import arange
+from numpy import arange, linspace
 
 #2.2
 kp = 10
@@ -21,34 +21,38 @@ def ex2():
 
     #2.4
     t, y = step(tf)
+    plt.figure()
+
     plt.plot(t, y)
-    plt.show() # tak, odpowiada
+    # plt.show() # tak, odpowiada
 
     #2.5
     sys = StateSpace(A, B, C, D)
     t, y = step(sys)
     plt.plot(t, y)
-    plt.show() # taka sama jak wczesniej
+    # plt.show() # taka sama jak wczesniej
 
     #2.7
     t = arange(0, 15, 0.01)
 
     #2.8
-    sol = solve_ivp(ex2_model_dydt, [0, 15], [0], dense_output=True)
+    sol = solve_ivp(ex2_model_dydt, [min(t), max(t)], [0], dense_output=True)
 
     #2.9
     plt.plot(t, sol.sol(t).T)
+    plt.legend(["1", "2", "3"])
     plt.show() # taka sama
 
     #2.10
     # wszystkie sa takie same
 
 ###############################################
-L = 1 # H
-R = 12 # Ohm
-C = 100 * 10e-6 # F
 
 def ex3():
+    L = 1 # H
+    R = 12 # Ohm
+    C = 100 * 10e-6 # F
+    
     #3.1
     num = [1, 0]
     den = [L, R, 1/C]
@@ -90,6 +94,53 @@ def ex3():
 
     print(sys, tf) # tf - takie samo, zmienne stanu rozne
 
+def ex4():
+    #4.1 na kartce, nizrj implementacja
+    m = 1 # kg
+    L = 0.5 # kg
+    d = 0.1 # Nms
+    J = 1/3*m*L**2
+
+    A = [[0, 1], [0, -d/J]]
+    B = [[0], [1/J]]
+    C = [1, 0]
+    D = 0
+
+    sys = StateSpace(A, B, C, D)
+
+    #4.2
+    t, y = step(sys)
+    plt.plot(t, y)
+    plt.show()
+    # odpowiedz skokowa - charakter calkujacy z inercja - kreci sie ze stala predkoscia
+    
+    #4.3
+    t = linspace(0, 100) # liniowo narastajacy
+
+    u1 = 1.2 * t
+    tout, yout, _ = lsim2(sys, U=u1, T=t)
+    plt.plot(tout, yout)
+    plt.show()
+
+    u2 = -1.2 * t
+    tout, yout, _ = lsim2(sys, U=u2, T=t)
+    plt.plot(tout, yout)
+    plt.show()
+
+    # widac tam ze coraz szybciej sie obraca a to czy u mialo a>0 definiuje kierunek obrotu
+
+    #4.4
+    w, mag, phase = bode(sys)
+    plt.figure()
+    plt.subplot(1,2,1)
+    plt.semilogx(w, mag)
+    plt.subplot(1,2,2)
+    plt.semilogx(w, phase)
+    plt.show()
+
+    # jak najbardziej, zgadza się
+
 if __name__ == "__main__":
-    # ex2()
-    ex3()
+    #ex2()
+    #ex3()
+    ex4()
