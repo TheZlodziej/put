@@ -38,42 +38,60 @@ class Agent:
 
         # move by one or two cells
         action = self.action_dir * np.random.choice([1, 2])
-
         # use information about requested action to update posterior
         # TODO PUT YOUR CODE HERE
-
+        self.predict_posterior(action)
 
         # ------------------
 
         return action
 
+    def norm_P(self):
+        self.P = [i/sum(self.P) for i in self.P]  # zeby sie dodaly do 1
+
     def predict_posterior(self, action):
         # predict posterior using requested action
         # TODO PUT YOUR CODE HERE
-        possible_actions_with_probability = {
-            action+0: 1-6*self.eps_move,
-            action-1: 2*self.eps_move,
-            action+1: 2*self.eps_move,
-            action-2: self.eps_move,
-            action+2: self.eps_move,
+        actions_with_probability = {
+            0: 1-6*self.eps_move,
+            -1: 2*self.eps_move,
+            1: 2*self.eps_move,
+            -2: self.eps_move,
+            2: self.eps_move,
         }
-        
-        for xt in range(len(self.P)):
-            for new_act, prob in enumerate(possible_actions_with_probability):
-                if new_act >= 0 and new_act < len(self.P):
-                    self.P[xt+new_act] *= prob 
-            
-        print(self.P)
+
+        old_P = self.P
+        self.P = np.zeros(self.size)
+
+        for xt in range(self.size):
+            for curr_action, prob in actions_with_probability.items():
+                curr_xt_offset = action + curr_action + xt
+                if curr_xt_offset >= 0 and curr_xt_offset < self.size:
+                    self.P[curr_xt_offset] += old_P[xt]*prob
+
+        self.norm_P()
         # ------------------
         return
 
     def correct_posterior(self, percept):
         # correct posterior using measurements
         # TODO PUT YOUR CODE HERE
-        # print(self.P)
-        pass
-        #for xt in range(1, len(self.P)):
+        percepts_with_probability = {  # P(z_t | x_t)
+            percept+0: 1-6*self.eps_perc,
+            percept-1: 2*self.eps_perc,
+            percept+1: 2*self.eps_perc,
+            percept-2: self.eps_perc,
+            percept+2: self.eps_perc,
+        }
 
+        old_P = self.P
+        self.P = np.zeros(self.size)
+
+        for sensor_pos, prob in percepts_with_probability.items():
+            if sensor_pos >= 0 and sensor_pos < self.size:
+                self.P[sensor_pos] = old_P[sensor_pos]*prob
+
+        self.norm_P()
         # ------------------
 
     def get_posterior(self):

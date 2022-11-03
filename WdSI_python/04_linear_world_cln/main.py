@@ -19,7 +19,7 @@ def main():
     # size of the environment
     env_size = 32
     eps_move = 0.02
-    eps_perc = 0.1
+    eps_perc = 0.015
     # map of the environment: 1 - wall, 0 - free
     map = np.zeros((env_size, env_size))
     # build the list of walls locations
@@ -39,7 +39,8 @@ def main():
     view = LocView(env)
 
     # create the agent
-    agent = Agent(env.size, env.walls, env.agentLoc, env.agentDir, eps_move, eps_perc)
+    agent = Agent(env.size, env.walls, env.agentLoc,
+                  env.agentDir, eps_move, eps_perc)
     t = 0
     while t != 40:
         print('\nstep %d' % t)
