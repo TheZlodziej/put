@@ -11,23 +11,23 @@ pp = pprint.PrettyPrinter()
 def ex1():
     t = np.linspace(0, 50, num=1000)
     # u = 5 * np.sin(t)
-    u = np.ones(len(t))
+    u =  np.zeros_like(t) #np.ones(len(t))
 
-    def plt_sys_response_lsim(ax, A,B,C,D):
-        tout, yout, _ = lsim((A,B,C,D), U=u, T=t)
+    def plt_sys_response_lsim(ax, A,B,C,D, x0):
+        tout, yout, _ = lsim((A,B,C,D), U=u, T=t, X0=x0)
         ax.plot(tout, yout)
 
-    def plt_sys_response_lsim2(ax, A,B,C,D):
-        tout, yout, _ = lsim2((A,B,C,D), U=u, T=t)
+    def plt_sys_response_lsim2(ax, A,B,C,D, x0):
+        tout, yout, _ = lsim2((A,B,C,D), U=u, T=t, X0=x0)
         ax.plot(tout, yout)
 
-    def plt_sys_response_lsim_and_lsim2(A,B,C,D):
+    def plt_sys_response_lsim_and_lsim2(A,B,C,D, x0 = None):
         _, ax = plt.subplots(2, 1)
         ax[0].set_title("lsim")
-        plt_sys_response_lsim(ax[0], A,B,C,D)
+        plt_sys_response_lsim(ax[0], A,B,C,D, x0)
 
         ax[1].set_title("lsim2")
-        plt_sys_response_lsim2(ax[1], A,B,C,D)
+        plt_sys_response_lsim2(ax[1], A,B,C,D, x0)
         
         plt.show()
 
@@ -75,6 +75,7 @@ def ex1():
 
         plt_sys_response_lsim_and_lsim2(As,Bs,Cs,Ds) # nie zmienia sie bo przeksztalcenie liniowe nie zmienia dynamiki
         # przebiegi tez sa takie same ale w nowym ukladzie wspolrzednych (przebieg sie nie zmienia ale osie tak)
+        return As, Bs, Cs, Ds
 
     def ex3_X(A,B,C,D, poles):
         # 3.1
@@ -96,7 +97,7 @@ def ex1():
 
         #3.3
         A1 = A - B@K
-        plt_sys_response_lsim_and_lsim2(A1,B,C,D)
+        plt_sys_response_lsim_and_lsim2(A1,B,C,D, [1, 2, 3])
         # odpowiedz ma charakter obiektu oscylacyjnego
         # (ogolnie obiekt nie powinien byc oscylacyjny bo bieguny ustawilismy na ujemne [i bez Im])
         # ale wczesniej odpowiedz miala charakter jak dla inercyjnego 2 rzędu mimo, że mamy 3 bieguny.
@@ -133,8 +134,8 @@ def ex1():
         D = 0
 
         ex1_X(A,B,C,D)
-        ex2_X(A,B,C,D)
-        ex3_X(A,B,C,D, [-1, -2, -5]) # charakter oscylacyjny, zmiana biegunow wplywa na wsp. tlumienia i pulsacje.
+        As, Bs, Cs, Ds = ex2_X(A,B,C,D)
+        ex3_X(As,Bs,Cs,Ds, [-1, -2, -5]) # charakter oscylacyjny, zmiana biegunow wplywa na wsp. tlumienia i pulsacje.
 
     def ex1_2_3():
         # const.
@@ -167,9 +168,9 @@ def ex1():
         ex2_X(A,B,C,D)
     
     # ============ tu trzeba wybrac ktory uklad teraz analizujemy i po kolei wszystkie zadania do podpunktu leca ============= #
-    ex1_2_1()
+    #ex1_2_1()
     ex1_2_2()
-    ex1_2_3()
+    #ex1_2_3()
     ex1_2_4()
 
 
