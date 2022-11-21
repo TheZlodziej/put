@@ -62,21 +62,17 @@ def ex4():
 
     def problem_dyn(a):
         t = linspace(0, 1)
-        xt = odeint(model, [0], t, args=a)
-        return xt[-1][0]
+        int_0t_xt = odeint(model, [0], t, args=a)
+        return int_0t_xt[-1][0]
 
-    A = (1, 0, 0, 0)
-
-    end_of_interval = problem_dyn(A)
-    print(end_of_interval)
-
-    cstr = LinearConstraint(eye(4), 1, 3)
-    a0 = [0, 0, 0, 0]
-    result = minimize(model, x0=a0, args=A, constraints=cstr,
+    
+    A = (0,0,0,0)
+    cstr = LinearConstraint([[1]], 1, 3)
+    result = minimize(model, x0=[0], args=A, constraints=cstr,
                       method='trust-constr')
 
 
 if __name__ == '__main__':
     # ex2()
-    ex3()
-    # ex4()
+    # ex3()
+    ex4()
