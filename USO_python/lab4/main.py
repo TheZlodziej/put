@@ -57,19 +57,42 @@ def ex3():
 
 
 def ex4():
-    def model(y, t, a0, a1, a2, a3):
-        return a0 + a1*t + a2*t**2 + a3*t**3
+    t_start = 0
+    t_end = 1
+    x_t_start = 1
+    x_t_end = 3
+
+    def model(_, t, a0, a1, a2, a3):
+        xt = a0 + a1*t + a2*t**2 + a3*t**3
+        dxt_dt = a1 + 2*a2*t + 3*a3*t**2
+        dJ_dt = 24*xt + 2*dxt_dt**2 - 4*t
+        return dJ_dt
 
     def problem_dyn(a):
-        t = linspace(0, 1)
-        int_0t_xt = odeint(model, [0], t, args=a)
-        return int_0t_xt[-1][0]
-
+        t = linspace(t_start, t_end)
+        int_0t_J = odeint(model, [0], t, args=a)
+        return int_0t_J[-1][0]
+        
+    def min_a(a):
+        return problem_dyn((a[0], a[1], a[2], a[3]))
     
-    A = (0,0,0,0)
-    cstr = LinearConstraint([[1]], 1, 3)
-    result = minimize(model, x0=[0], args=A, constraints=cstr,
-                      method='trust-constr')
+    a_cstr = [
+        {
+            "type": "eq",
+            "fun": lambda a: a[0] + a[1]*t_start + a[2]*t_start**2 + a[3]*t_start**3 - x_t_start # = 0
+        },
+        {
+            "type": "eq",
+            "fun": lambda a: a[0] + a[1]*t_end + a[2]*t_end**2 + a[3]*t_end**3 - x_t_end # = 0
+        }
+    ]
+
+    a0 = [0, 0, 0, 0]
+    res = minimize(min_a, a0, constraints=a_cstr, options={"disp":True})
+    if res.success:
+        print(f"rozw={res.x}")
+    else:
+        print("nie tym razem")
 
 
 if __name__ == '__main__':
