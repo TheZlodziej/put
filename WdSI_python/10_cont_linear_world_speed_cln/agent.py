@@ -49,7 +49,7 @@ class Agent:
     def predict_posterior(self):
         # predict posterior
         # TODO PUT YOUR CODE HERE
-        a = 0#np.random.normal(0, self.sigma_move)
+        a = 0 # var_m in covariance matrix
         self.mu = self.F@self.mu + self.B*a
         self.Sigma = self.F@self.Sigma@self.F.T + self.Q
         # ------------------
