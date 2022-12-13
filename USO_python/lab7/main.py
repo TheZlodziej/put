@@ -1,7 +1,7 @@
-from numpy import linspace, power, sqrt, clip
+from numpy import linspace, power, sqrt, clip, cos, sin, pi
 from scipy.integrate import odeint
 from matplotlib.pyplot import plot, figure, show, title, legend
-
+from scipy.constants import g as g_acc
 
 def main():
     def ex2():
@@ -74,8 +74,8 @@ def main():
             et = z - yt
 
             # u(t) zalezne od tego czy saturacja jest on/off
-            ut = kp*et
-            # ut = clip(kp*et, -0.1, 0.1)  # blok saturacji
+            #ut = kp*et
+            ut = clip(kp*et, -0.1, 0.1)  # blok saturacji
 
             # stan
             # x' = -1/k_ob*x + 1*u
@@ -102,9 +102,42 @@ def main():
         legend()
         show()
 
+    def ex5():
+        def odeint_model(x, t):
+        # parametry modelu
+            A = 1.5
+            w = 0.65
+            dump=0.5
+
+            m = 0.01
+            R = 10
+            J = m*R**2
+
+            # wymuszenie
+            tau_m = A*cos(w*t)
+            
+            # stan
+            x1, x2 = x
+
+            dx1dt = x2
+            dx2dt = tau_m/J - dump/J*x2 - m*g_acc/J*R*sin(x1)
+            return [dx1dt, dx2dt]
+        
+        t = linspace(0, 150, num=2000)
+        x0 = [pi, 0]
+        x = odeint(odeint_model, x0, t)
+
+        theta = x[:, 0] * 180/pi
+
+        figure()
+        plot(t, theta, label=r'$\theta (t)$')
+        legend()
+        show()
+
     # ex2()
     # ex3()
-    ex4()
+    # ex4()
+    ex5()
 
 
 if __name__ == '__main__':
