@@ -61,7 +61,7 @@ class Agent:
     def calculate_weights(self, percept):
         # calculate weights using percept
         # TODO PUT YOUR CODE HERE
-        N_mu = lambda mu: 0.5/self.sigma_perc/math.sqrt(2*np.pi) * np.exp(-(percept-mu)**2/2/self.sigma_sq_perc)
+        N_mu = lambda mu: 0.5/math.sqrt(self.sigma_perc*2*np.pi) * np.exp(-(percept-mu)**2/2/self.sigma_sq_perc)
         self.w = np.array([N_mu(p_i) for p_i in self.p])
         self.w /= sum(self.w) # normalize
         # ------------------
@@ -72,7 +72,27 @@ class Agent:
     def correct_posterior(self):
         # correct posterior using measurements
         # TODO PUT YOUR CODE HERE
-        
+        # zbiór nowych cząsteczek
+        new_p = []
+        # początkowy indeks (miejsce skąd zaczynamy)
+        index = np.random.randint(0, self.n) #U[1 ...M]
+        # "beta" będzie oznaczała jak daleko znajduje się strzałka od początku cząsteczki o indeksie "index"
+        beta = 0.0
+        # największa waga cząsteczki, żeby wybrać sensowny zakres losowanych wartości "beta"
+        mw = max(self.w)
+        # losujemy M cząsteczek
+        for i in range(self.n):
+            # przesuwamy się o "beta" z rozkładu jednostajnego od 0 do 2mw
+            beta += i/self.n * mw # U{0 ... 2.0*mw}
+            # szukamy indeksu, który odpowiada aktualnemu położeniu strzałki
+            while beta > self.w[index]:
+                # przeskakujemy na następną cząsteczkę, odejmując jej wagę od "beta"
+                beta -= self.w[index]
+                index = (index+1) % self.n
+            # dodaj cząsteczkę o indeksie "index" do zbioru wylosowanych cząsteczek
+            new_p.append(self.p[index])
+
+        self.p = new_p
         # ------------------
 
         # this function does not return anything
