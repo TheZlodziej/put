@@ -91,7 +91,7 @@ class Agent:
                 index = (index+1) % self.n
             # dodaj cząsteczkę o indeksie "index" do zbioru wylosowanych cząsteczek
             new_p.append(self.p[index])
-
+        print(self.p)
         self.p = new_p
         # ------------------
 
