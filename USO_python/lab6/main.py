@@ -154,9 +154,9 @@ def main():
             xd = array([[qd], [0]])
             
             e = xd - x
-            u = -(-K@e) +1/params['C']*qd #- A@xd
+            u = -(-K@e) + B.T@xd #1/params['C']*qd
 
-            dxdt = A@x + B*u
+            dxdt = A@x + B@u
             return dxdt.flatten()
 
         # wyznaczanie K, R
@@ -179,8 +179,8 @@ def main():
     
     # wykresy sa zakomentowane
     #ex2()
-    ex3()
-    #ex4()
+    #ex3()
+    ex4()
 
 if __name__ == '__main__':
     main()
