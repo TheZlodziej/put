@@ -18,11 +18,11 @@ t = (0.006:0.01:29.995+0.01)'; % sam wygenerowałem bo potrzebuję stałe Tp.
 procent_valid = 0.3;
 length_valid = floor(0.3 * length(t));
 
-y_ident = y(1 : length(t) - length_valid);
+y_ident = y_iw(1 : length(t) - length_valid);
 u_ident = u(1 : length(t) - length_valid);
 t_ident = t(1 : length(t) - length_valid);
 
-y_valid = y(length(t) - length_valid + 1 : end);
+y_valid = y_iw(length(t) - length_valid + 1 : end);
 u_valid = u(length(t) - length_valid + 1 : end);
 t_valid = t(length(t) - length_valid + 1 : end);
 
@@ -96,20 +96,20 @@ y_est = [
 % for i = 1:N
 %     % y(t) = -a1*y(t-1) -a2*y(t-2) +b0*u(t-1) +b1*u(t-2)
 %     y_est(max_delay + i) = ...
-%        -a1 * y(max_delay + i - 1) ...
-%        -a2 * y(max_delay + i - 2) ...
-%        +b0 * u(max_delay + i - 1) ...
-%        +b1 * u(max_delay + i - 2);
+%        -a1 * y_valid(max_delay + i - 1) ...
+%        -a2 * y_valid(max_delay + i - 2) ...
+%        +b0 * u_valid(max_delay + i - 1) ...
+%        +b1 * u_valid(max_delay + i - 2);
 % end
 
 %% Wskaźniki
 n = length(y_valid);
 avg_error = sum(abs(y_valid - y_est))/n;
-mean_squared_error = sqrt(sum((y_valid - y_est).^2)/n);
+mean_squared_error = sum((y_valid - y_est).^2)/n;
 J_fit = (1 - norm(y_valid - y_est)/norm(y_valid - mean(y_valid)*ones(size(y_valid)))) * 100; % [%]
 
 %% Odpowiedź układu na inne wymuszenie
 Ob = tf([b0, b1, 0], [1, a1, a2], Tp);
-t_stab = 0:Tp:10;
-u_stab = sin(2*pi*t_stab);
-y_stab = lsim(Ob, u_stab, t_stab);
+t_iw = 0:Tp:10;
+u_iw = sin(2*pi*t_iw);
+y_iw = lsim(Ob, u_iw, t_iw);

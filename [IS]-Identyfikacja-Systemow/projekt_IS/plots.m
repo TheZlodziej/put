@@ -35,7 +35,7 @@ grid on;
 figure;
 hold on;
 title('Odpowiedź estymowanego obiektu na u = sin(2*pi*t)');
-plot(t_stab, u_stab, 'b', t_stab, y_stab, 'r');
+plot(t_iw, u_iw, 'b', t_iw, y_iw, 'r');
 legend('u = sin(t)', 'y estymowane');
 xlabel('t [s]');
 ylabel('u(t) / y(t)');
