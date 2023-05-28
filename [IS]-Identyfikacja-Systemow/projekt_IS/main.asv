@@ -108,8 +108,8 @@ avg_error = sum(abs(y_valid - y_est))/n;
 mean_squared_error = sqrt(sum((y_valid - y_est).^2)/n);
 J_fit = (1 - norm(y_valid - y_est)/norm(y_valid - mean(y_valid)*ones(size(y_valid)))) * 100; % [%]
 
-%% Odpowiedź układu na inne wymuszenie
+%% Analiza stabilności
 Ob = tf([b0, b1, 0], [1, a1, a2], Tp);
-t_stab = 0:Tp:10;
-u_stab = sin(2*pi*t_stab);
-y_stab = lsim(Ob, u_stab, t_stab);
+u_stab
+t_stab = 
+fx = lsim(Ob, sin(2*pi*t), t);
