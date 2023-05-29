@@ -18,11 +18,11 @@ t = (0.006:0.01:29.995+0.01)'; % sam wygenerowałem bo potrzebuję stałe Tp.
 procent_valid = 0.3;
 length_valid = floor(0.3 * length(t));
 
-y_ident = y_iw(1 : length(t) - length_valid);
+y_ident = y(1 : length(t) - length_valid);
 u_ident = u(1 : length(t) - length_valid);
 t_ident = t(1 : length(t) - length_valid);
 
-y_valid = y_iw(length(t) - length_valid + 1 : end);
+y_valid = y(length(t) - length_valid + 1 : end);
 u_valid = u(length(t) - length_valid + 1 : end);
 t_valid = t(length(t) - length_valid + 1 : end);
 
