@@ -68,7 +68,7 @@ class Agent:
         # TODO PUT YOUR CODE HERE
 
 
-        # TU JEST ZLE!!! percept zwraca odleglosc do jednego i drugiego markera
+
         dist_to_land_A, dist_to_land_B = percept
         land_A_pos, land_B_pos = tuple(self.landmarks)
 
@@ -102,8 +102,7 @@ class Agent:
                 beta -= self.w[index]
                 index = (index+1) % self.n
             # dodaj cząsteczkę o indeksie "index" do zbioru wylosowanych cząsteczek
-            new_p[index] = self.p[index]
-
+            new_p[i] = self.p[index]
         self.p = new_p
         # ------------------
 

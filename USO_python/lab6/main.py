@@ -24,13 +24,13 @@ def main():
         def model_odeint_2_2(x, t, v):
             x = asarray(x).reshape((2,1))
             u = v
-            return A@x+B@u
+            return (A@x+B*u).flatten()
 
         # odeint fun (2.4)
         def model_odeint_2_4(x, t, K):
             x = asarray(x).reshape((2,1))
             u = -K@x
-            return A@x+B@u
+            return (A@x+B*u).flatten()
 
         # odeint fun (2.6)
         def model_odeint_2_6(x, t, K, R):
@@ -50,32 +50,34 @@ def main():
         # 2.3
         t = linspace(0, 15, num=200)
         x0 = [0, 0]
-        x = odeint(model_odeint_2_2, x0, t, args=([1],))
-        
+        x_2_3 = odeint(model_odeint_2_2, x0, t, args=([1],))
+        figure()
+        plot(t, x_2_3[:, 0])
+
         # 2.4
         x0 = [1, 0]
         x_2_4 = odeint(model_odeint_2_4, x0, t, args=(K,)) 
-        # figure()
-        # plot(t, x_2_4[:, 0])
-        # show()
+        figure()
+        plot(t, x_2_4[:, 0])
+        show()
 
         # 2.5
-        # x0 = [1, 2]
-        # x_2_5 = odeint(model_odeint_2_4, x0, t, args=(K,)) 
-        # figure()
-        # plot(t, x_2_5[:, 0])
-        # show()        
+        x0 = [1, 2]
+        x_2_5 = odeint(model_odeint_2_4, x0, t, args=(K,)) 
+        figure()
+        plot(t, x_2_5[:, 0])
+        show()        
 
         # 2.6
         x0 = [0, 1, 0]
         x_2_6 = odeint(model_odeint_2_6, x0, t, args=(K,R))
         J = x_2_6[-1, 2]
         print(f'J={J}')
-        # figure()
-        # plot(t, x_2_6[:, 0], label='x1')
-        # plot(t, x_2_6[:, 2], label='J')
-        # legend()
-        # show()
+        figure()
+        plot(t, x_2_6[:, 0], label='x1')
+        plot(t, x_2_6[:, 2], label='J')
+        legend()
+        show()
 
     def ex3():
 
@@ -95,13 +97,13 @@ def main():
         P = odeint(ric_odeint, Pt1, t, args=(Q,R))
             
         # plotowanie macierzy P (3.2)
-        # figure()
-        # plot(t, P[:,0], label="P00")
-        # plot(t, P[:,1], label="P01")
-        # plot(t, P[:,2], label="P10")
-        # plot(t, P[:,3], label="P11")
-        # legend()
-        # show()
+        figure()
+        plot(t, P[:,0], label="P00")
+        plot(t, P[:,1], label="P01")
+        plot(t, P[:,2], label="P10")
+        plot(t, P[:,3], label="P11")
+        legend()
+        show()
 
         # funkcja macierzy P (interpolacja)
         Pfun = array([interp1d(t, P[:, i], fill_value='extrapolate') for i in range(P.shape[1])]).reshape((2,2))
@@ -120,11 +122,11 @@ def main():
         x = odeint(model_odeint_3_4, x0, t, args=(Pfun, R))
 
         # wykres odp skokowej (3.6)
-        # figure()
-        # plot(t, x[:, 0], label="x1")
-        # plot(t, x[:, 1], label="x2")
-        # legend()
-        # show()
+        figure()
+        plot(t, x[:, 0], label="x1")
+        plot(t, x[:, 1], label="x2")
+        legend()
+        show()
 
         # 3.7
         def model_odeint_3_7(x, t, Pfun, R):
@@ -178,8 +180,8 @@ def main():
         show()
     
     # wykresy sa zakomentowane
-    #ex2()
-    #ex3()
+    ex2()
+    ex3()
     ex4()
 
 if __name__ == '__main__':

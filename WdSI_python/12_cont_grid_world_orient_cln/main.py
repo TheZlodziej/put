@@ -68,7 +68,7 @@ def main():
         view.update(env, p, w)
         update(rate)
         # uncomment to pause before action
-        view.pause()
+        #view.pause()
 
         agent.correct_posterior()
 
@@ -85,7 +85,7 @@ def main():
         print('mean error: %.3f' % np.array(errors).mean())
 
         # uncomment to pause before action
-        view.pause()
+        #view.pause()
 
         t += 1
 
