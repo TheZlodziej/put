@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab01</title>
+  </head>
+  <body>
+    <div id="out"></div>
+    <script>
+      function print(message) {
+        const out = document.getElementById('out')
+        if (typeof message === 'object') {
+          out.innerHTML += `<br/>${JSON.stringify(message)}<br/>`
+        } else {
+          out.innerHTML += `<br/>${message}<br/>`
+        }
+      }
+
+      const a = JSON.parse(String.raw`
+        {
+            "r": 0,
+            "g": 100,
+            "b": 200
+        }
+      `)
+      print(a)
+
+      const b = JSON.parse(String.raw`
+        [
+            [0, 100, 200],
+            [0, 0, 0]
+        ]
+      `)
+      print(b)
+
+      const c = JSON.parse(String.raw`
+        {
+            "rgb": [0, 100, 200]
+        }
+      `)
+      print(c)
+
+      const d = JSON.parse(String.raw`
+        {
+            "rgb1": {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
+            },
+            "rgb2": {
+                    "r": 0,
+                    "g": 100,
+                    "b": 200
+            },
+            "rgb3": {
+                    "r": 255,
+                    "g": 255,
+                    "b": 25
+            },
+            "rgb4": {
+                    "r": 255,
+                    "g": 0,
+                    "b": 0
+            }
+        }
+      `)
+      print(d)
+
+      const sensors = JSON.parse(String.raw`
+        {
+            "sensors": {
+                "pressure": {
+                    "config": {
+                        "sensor": "LPS25H",
+                        "communication": {
+                            "interface": "i2c",
+                            "pins": {
+                                "scl": 13,
+                                "sda": 14
+                            }
+                        },
+                        "unit": {
+                            "pressure": "Pa"
+                        }
+                    },
+                    "data": {
+                        "pressure": 1200
+                    }
+                },
+                "imu": {
+                    "config": {
+                        "sensor": "LSM9DS1",
+                        "communication": {
+                            "interface": "i2c",
+                            "pins": {
+                                "scl": 11,
+                                "sda": 12
+                            }
+                        },
+                        "unit": {
+                            "gyroscope": "dps",
+                            "accelerometer": "g",
+                            "magnetometer": "gauss"
+                        }
+                    },
+                    "data": {
+                        "gyroscope": {
+                            "x": 0,
+                            "y": 0,
+                            "z": 0
+                        },
+                        "accelerometer": {
+                            "x": 1,
+                            "y": 1,
+                            "z": 1
+                        },
+                        "magnetometer": {
+                            "x": 2,
+                            "y": 2,
+                            "z": 2
+                        }
+                    }
+                }
+            }
+        }
+     `)
+      print(sensors)
+    </script>
+  </body>
+</html>
