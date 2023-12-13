@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 
-int main()
-{
+int main() {
 	std::cout << "Witaj, podaj jakas liczbe!\n";
 	int target, guess, tries=0;
 	std::cin >> target;
