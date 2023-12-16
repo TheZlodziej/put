@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Led matrix</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      section#container {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+      }
+
+      section#app {
+        height: 100dvh;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="container">
+      <section id="app"></section>
+    </section>
+
+    <script>
+      ;(function () {
+        function addStyles(el, styles) {
+          for (const [nam, val] of Object.entries(styles)) {
+            el.style[nam] = val
+          }
+        }
+
+        const app = document.getElementById('app')
+
+        addStyles(app, {
+          display: 'grid',
+          'grid-template-columns': '3fr 1fr',
+          'grid-template-rows': '50px repeat(3, 1fr)',
+          'grid-column-gap': '0px',
+          'grid-row-gap': '0px'
+        })
+
+        /* LED MATRIX */
+        const makePixel = (i) => {
+          const px = document.createElement('input')
+          px.type = 'color'
+          addStyles(px, {
+            all: 'unset',
+            cursor: 'pointer'
+          })
+
+          // input with debouncing
+          let timeoutId = null
+          px.addEventListener('input', () => {
+            if (timeoutId) {
+              clearTimeout(timeoutId)
+            }
+            timeoutId = setTimeout(async () => {
+              fetch('./server.php', { method: 'POST', body: { num: i, color: px.value } })
+              timeoutId = null
+            }, 400)
+          })
+          //
+
+          return px
+        }
+
+        const makeMatrix = (w, h) => {
+          const mat = document.createElement('section')
+          mat.id = 'mat'
+          addStyles(mat, {
+            display: 'grid',
+            'grid-template-rows': `repeat(${h}, minmax(30px, 1fr))`,
+            'grid-template-columns': `repeat(${w}, minmax(30px, 1fr))`,
+            'row-gap': '10px',
+            'column-gap': '10px',
+            'grid-area': '2 / 1 / 5 / 2',
+            height: '100%',
+            'aspect-ratio': '1/1',
+            margin: 'auto'
+          })
+          for (let i = 0; i < w * h; i++) {
+            mat.appendChild(makePixel(i))
+          }
+          return mat
+        }
+
+        const matrix = makeMatrix(8, 8)
+
+        const initPixels = async () => {
+          return fetch('./server.php')
+            .then((r) => r.json())
+            .then((json) => {
+              const px_vals = json['led_matrix']
+              px_vals.forEach((val, idx) => {
+                matrix.childNodes[idx].value = val
+              })
+            })
+        }
+
+        initPixels()
+        setInterval(initPixels, 3000)
+
+        app.appendChild(matrix)
+
+        /* SENSORS */
+        const makeSensors = (sensorsInfo) => {
+          const container = document.createElement('section')
+          addStyles(container, {
+            'grid-area': '2 / 2 / 5 / 3',
+            // 'background-color': 'blue',
+            'font-size': '1.5rem',
+            display: 'flex',
+            'flex-direction': 'column',
+            'flex-wrap': 'nowrap',
+            gap: '5px'
+          })
+
+          // sensorInfo:  {
+          //       valueToStringFunction: (json) => str
+          //       respKey: str,
+          //       reqParam: str,
+          //       displayName?: str,
+          // }[]
+
+          sensorsInfo.forEach((sensorInfo, i) => {
+            const sensContainer = document.createElement('section')
+            sensContainer.innerText = `${sensorInfo.displayName ?? sensorInfo.respKey}: ...`
+            container.appendChild(sensContainer)
+          })
+
+          return container
+        }
+
+        const sensors = makeSensors([
+          {
+            valueToStringFunction: (json) => JSON.stringify(json),
+            respKey: 'temperature',
+            reqParam: '-t',
+            displayName: 'Temperatura'
+          },
+          {
+            valueToStringFunction: (json) => JSON.stringify(json),
+            respKey: 'temperature',
+            reqParam: '-t',
+            displayName: 'Temperatura'
+          },
+          {
+            valueToStringFunction: (json) => JSON.stringify(json),
+            respKey: 'temperature',
+            reqParam: '-t',
+            displayName: 'Temperatura'
+          }
+        ])
+        app.appendChild(sensors)
+
+        /* TITLE */
+        const title = document.createElement('section')
+        addStyles(title, {
+          'grid-area': '1 / 1 / 2 / 3',
+          //'background-color': 'yellow',
+          'font-size': '2rem',
+          'text-align': 'center'
+        })
+        title.innerText = 'Aplikacja Jerzego :)'
+
+        app.appendChild(title)
+      })()
+    </script>
+  </body>
+</html>
