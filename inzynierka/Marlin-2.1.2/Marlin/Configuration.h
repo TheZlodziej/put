@@ -587,13 +587,13 @@
 #define MAX31865_CALIBRATION_OHMS_2 430
 #endif
 
-#if HAS_E_TEMP_SENSOR          // TODO:
+#if HAS_E_TEMP_SENSOR          
 #define TEMP_RESIDENCY_TIME 10 // (seconds) Time to wait for hotend to "settle" in M109
 #define TEMP_WINDOW 1          // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_HYSTERESIS 3      // (°C) Temperature proximity considered "close enough" to the target
 #endif
 
-#if TEMP_SENSOR_BED                // TODO:
+#if TEMP_SENSOR_BED                
 #define TEMP_BED_RESIDENCY_TIME 10 // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW 1          // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS 3      // (°C) Temperature proximity considered "close enough" to the target
@@ -623,7 +623,7 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP 5 // TODO:
+#define HEATER_0_MINTEMP 5
 #define HEATER_1_MINTEMP 5
 #define HEATER_2_MINTEMP 5
 #define HEATER_3_MINTEMP 5
@@ -631,13 +631,13 @@
 #define HEATER_5_MINTEMP 5
 #define HEATER_6_MINTEMP 5
 #define HEATER_7_MINTEMP 5
-#define BED_MINTEMP 5 // TODO:
+#define BED_MINTEMP 5
 #define CHAMBER_MINTEMP 5
 
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275 // TODO:
+#define HEATER_0_MAXTEMP 275
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -645,7 +645,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP 150 // TODO:
+#define BED_MAXTEMP 150
 #define CHAMBER_MAXTEMP 60
 
 /**
@@ -654,8 +654,8 @@
  * (especially before PID tuning). Setting the target temperature too close to MAXTEMP guarantees
  * a MAXTEMP shutdown! Use these values to forbid temperatures being set too close to MAXTEMP.
  */
-#define HOTEND_OVERSHOOT 15 // TODO:   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
-#define BED_OVERSHOOT 10    // TODO:  // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define HOTEND_OVERSHOOT 15 // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define BED_OVERSHOOT 10    // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define COOLER_OVERSHOOT 2  // (°C) Forbid temperatures closer than OVERSHOOT
 
 //===========================================================================
@@ -786,7 +786,7 @@
 
 // #define BED_LIMIT_SWITCHING
 
-/** // TODO:
+/**
  * Max Bed Power
  * Applies to all forms of bed control (PID, bang-bang, and bang-bang with hysteresis).
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
@@ -878,7 +878,7 @@
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
-#define PREVENT_LENGTHY_EXTRUDE // TODO: jeszcze w sumie nie wiadomo jak my mamy xd
+#define PREVENT_LENGTHY_EXTRUDE
 #define EXTRUDE_MAXLENGTH 200
 
 //===========================================================================
@@ -904,7 +904,7 @@
 #define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
 
 //===========================================================================
-//============================= Mechanical Settings ========================= // TODO: ? co to
+//============================= Mechanical Settings =========================
 //===========================================================================
 
 // @section machine
@@ -1097,7 +1097,7 @@
 // #define USE_WMIN_PLUG
 // #define USE_XMAX_PLUG
 // #define USE_YMAX_PLUG
-// #define USE_ZMAX_PLUG // TODO: Wywalamy?
+// #define USE_ZMAX_PLUG
 // #define USE_IMAX_PLUG
 // #define USE_JMAX_PLUG
 // #define USE_KMAX_PLUG
@@ -1253,7 +1253,7 @@
  */
 #define DEFAULT_MAX_ACCELERATION \
   {                              \
-    25, 25, 25, 10000            \
+    15, 15, 15, 10000            \
   } // TODO: mozna zmienic ale raczej w slicerze...
 
 #define LIMITED_MAX_ACCEL_EDITING // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
@@ -1693,7 +1693,7 @@
 #define Z_CLEARANCE_MULTI_PROBE 10    // Z Clearance between multiple probes
 // #define Z_AFTER_PROBING           5 // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT -20 // Farthest distance below the trigger-point to go before stopping // TODO:
+#define Z_PROBE_LOW_POINT -20 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20
@@ -1721,7 +1721,7 @@
   #define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude) // TODO:
 #endif
 #define PROBING_FANS_OFF          // Turn fans off when probing // TODO:
-#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing // TODO:
+#define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 // #define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
 #define DELAY_BEFORE_PROBING 100  // (ms) To prevent vibrations from triggering piezo sensors // TODO:
 
@@ -1738,7 +1738,7 @@
 #define X_ENABLE_ON 1
 #define Y_ENABLE_ON 1
 #define Z_ENABLE_ON 1
-#define E_ENABLE_ON 0 // TODO: zalezy co uzyjemy, ale jak ten, co jest na ramps to zwykle 0 // For all extruders
+   // TODO: zalezy co uzyjemy, ale jak ten, co jest na ramps to zwykle 0 // For all extruders
 // #define I_ENABLE_ON 0
 // #define J_ENABLE_ON 0
 // #define K_ENABLE_ON 0
