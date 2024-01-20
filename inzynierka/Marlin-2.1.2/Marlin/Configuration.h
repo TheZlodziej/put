@@ -1232,16 +1232,17 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
+// 20, 20, 10, 25
 #define DEFAULT_MAX_FEEDRATE \
   {                          \
-    20, 20, 10, 25           \
+    37, 40, 10, 25           \
   } // TODO: mozna zmienic ale raczej w slicerze...
 
 #define LIMITED_MAX_FR_EDITING // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
 #define MAX_FEEDRATE_EDIT_VALUES \
   {                              \
-    600, 600, 10, 50             \
+    600, 600, 20, 50             \
   } // ...or, set your own edit limits
 #endif
 
@@ -1251,9 +1252,10 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
+//  15, 15, 15, 10000
 #define DEFAULT_MAX_ACCELERATION \
   {                              \
-    15, 15, 15, 10000            \
+            500, 500, 100, 10000 \
   } // TODO: mozna zmienic ale raczej w slicerze...
 
 #define LIMITED_MAX_ACCEL_EDITING // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
@@ -1274,9 +1276,9 @@
  */
 
 // TODO: mozna zmienic wszystkie trzy ale raczej w slicerze...
-#define DEFAULT_ACCELERATION 10           // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION 300         // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION 3000 // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION 10    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION 300    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -1610,7 +1612,7 @@
  */
 #define NOZZLE_TO_PROBE_OFFSET \
   {                            \
-    84, 17, -0.35              \
+    84, 17, -1                 \
   } // TODO: pomierzyc i ustawic wszystko nizej
 
 // Most probes should stay away from the edges of the bed, but
@@ -1618,10 +1620,10 @@
 #define PROBING_MARGIN 10
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (10 * 60)
+#define XY_PROBE_FEEDRATE (35 * 60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (4 * 60)
+#define Z_PROBE_FEEDRATE_FAST (30 * 60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1726,7 +1728,7 @@
 #define DELAY_BEFORE_PROBING 100  // (ms) To prevent vibrations from triggering piezo sensors // TODO:
 
 // Require minimum nozzle and/or bed temperature for probing
-// #define PREHEAT_BEFORE_PROBING // TODO: na prusa mini 170/50 to daje tez; na razie off bo nie mamy sensora
+//#define PREHEAT_BEFORE_PROBING // TODO: na prusa mini 170/50 to daje tez; na razie off bo nie mamy sensora
 #if ENABLED(PREHEAT_BEFORE_PROBING)
 #define PROBING_NOZZLE_TEMP 170 // (°C) Only applies to E0 at this time
 #define PROBING_BED_TEMP 50
@@ -1828,11 +1830,11 @@
 #define Y_BED_SIZE 210 - 2 * BED_MOUNT_OFFSET
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS -87 - BED_MOUNT_OFFSET
-#define Y_MIN_POS -47 - BED_MOUNT_OFFSET
+#define X_MIN_POS -89 - BED_MOUNT_OFFSET
+#define Y_MIN_POS -44 - BED_MOUNT_OFFSET
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE // 389
-#define Y_MAX_POS Y_BED_SIZE // 345
+#define X_MAX_POS X_BED_SIZE
+#define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 100
 // #define I_MIN_POS 0
 // #define I_MAX_POS 50
@@ -2236,7 +2238,7 @@
 // Homing speeds (linear=mm/min, rotational=°/min)
 #define HOMING_FEEDRATE_MM_M       \
   {                                \
-    (10 * 60), (10 * 60), (10 * 60) \
+    (15 * 60), (15 * 60), (10 * 60) \
   }
 
 // Validate that endstops are triggered on homing moves
