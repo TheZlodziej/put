@@ -158,7 +158,7 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#define X_DRIVER_TYPE A4988 // TODO: SMC64 WP dla osi X,Y,Z - override zrobic jakiegos albo wybrac jakis co ma timingi dobre
+#define X_DRIVER_TYPE A4988
 #define Y_DRIVER_TYPE A4988
 #define Z_DRIVER_TYPE A4988
 // #define X2_DRIVER_TYPE A4988
@@ -172,7 +172,7 @@
 // #define U_DRIVER_TYPE  A4988
 // #define V_DRIVER_TYPE  A4988
 // #define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE A4988 // TODO: ustawic (idk jaki jest teraz) // jest a4988
+#define E0_DRIVER_TYPE A4988
 // #define E1_DRIVER_TYPE A4988
 // #define E2_DRIVER_TYPE A4988
 // #define E3_DRIVER_TYPE A4988
@@ -554,7 +554,7 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *
  */
-#define TEMP_SENSOR_0 504 // TODO: 504?
+#define TEMP_SENSOR_0 504
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -562,7 +562,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 504 // TODO: ustawic sensor dla bed tez (potem, przy instalacji)
+#define TEMP_SENSOR_BED 504
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -659,7 +659,7 @@
 #define COOLER_OVERSHOOT 2  // (°C) Forbid temperatures closer than OVERSHOOT
 
 //===========================================================================
-//============================= PID Settings ================================ // TODO: ale raczej nie bedzie trzeba
+//============================= PID Settings ================================
 //===========================================================================
 
 // @section hotend temp
@@ -872,7 +872,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 185 // TODO: PLA ma zwykle min 180 deg -> daje tak 185
+#define EXTRUDE_MINTEMP 185
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -1088,7 +1088,7 @@
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
 #define USE_XMIN_PLUG
 #define USE_YMIN_PLUG
-#define USE_ZMIN_PLUG // TODO: probe
+#define USE_ZMIN_PLUG
 // #define USE_IMIN_PLUG
 // #define USE_JMIN_PLUG
 // #define USE_KMIN_PLUG
@@ -1155,10 +1155,10 @@
 // #define ENDSTOPPULLDOWN_ZMIN_PROBE
 #endif
 
-// Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup). // TODO: ENDSTOP INVERT ?? (chyba nie ale nie pamietam)
+// Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop. // TODO: PROBE
+#define Z_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define I_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define J_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define K_MIN_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
@@ -1174,7 +1174,7 @@
 #define U_MAX_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define V_MAX_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
 #define W_MAX_ENDSTOP_INVERTING false                         // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING Z_MIN_ENDSTOP_INVERTING // Set to true to invert the logic of the probe. // TODO: PROB
+#define Z_MIN_PROBE_ENDSTOP_INVERTING Z_MIN_ENDSTOP_INVERTING // Set to true to invert the logic of the probe.
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1225,18 +1225,17 @@
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
     320.00, 320.00, 320.00, 415     \
-  } // TODO: https://blog.prusa3d.com/calculator_3416/ -> ekstruder do zrobienia
+  } // https://blog.prusa3d.com/calculator_3416/
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-// 20, 20, 10, 25
 #define DEFAULT_MAX_FEEDRATE \
   {                          \
     37, 40, 10, 25           \
-  } // TODO: mozna zmienic ale raczej w slicerze...
+  }
 
 #define LIMITED_MAX_FR_EDITING // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1252,11 +1251,10 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-//  15, 15, 15, 10000
 #define DEFAULT_MAX_ACCELERATION \
   {                              \
             500, 500, 100, 10000 \
-  } // TODO: mozna zmienic ale raczej w slicerze...
+  }
 
 #define LIMITED_MAX_ACCEL_EDITING // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1275,7 +1273,7 @@
  *   M204 T    Travel Acceleration
  */
 
-// TODO: mozna zmienic wszystkie trzy ale raczej w slicerze...
+
 #define DEFAULT_ACCELERATION 300         // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION 3000 // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION 300    // X, Y, Z acceleration for travel (non printing) moves
@@ -1350,10 +1348,10 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN // TODO:
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
-#define USE_PROBE_FOR_Z_HOMING // TODO:
+#define USE_PROBE_FOR_Z_HOMING
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1613,7 +1611,7 @@
 #define NOZZLE_TO_PROBE_OFFSET \
   {                            \
     84, 17, -1                 \
-  } // TODO: pomierzyc i ustawic wszystko nizej
+  }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1717,18 +1715,18 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-#define PROBING_HEATERS_OFF       // Turn heaters off when probing // TODO:
+#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy) // TODO:
-  #define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude) // TODO:
+  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+  #define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
-#define PROBING_FANS_OFF          // Turn fans off when probing // TODO:
+#define PROBING_FANS_OFF          // Turn fans off when probing
 #define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 // #define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
-#define DELAY_BEFORE_PROBING 100  // (ms) To prevent vibrations from triggering piezo sensors // TODO:
+#define DELAY_BEFORE_PROBING 100  // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
-//#define PREHEAT_BEFORE_PROBING // TODO: na prusa mini 170/50 to daje tez; na razie off bo nie mamy sensora
+//#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
 #define PROBING_NOZZLE_TEMP 170 // (°C) Only applies to E0 at this time
 #define PROBING_BED_TEMP 50
@@ -1736,11 +1734,11 @@
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{ 0:'Low', 1:'High' }
-// TODO: SMC64 enable high
+//
 #define X_ENABLE_ON 1
 #define Y_ENABLE_ON 1
 #define Z_ENABLE_ON 1
-#define E_ENABLE_ON 0 // TODO: zalezy co uzyjemy, ale jak ten, co jest na ramps to zwykle 0 // For all extruders
+#define E_ENABLE_ON 0
 // #define I_ENABLE_ON 0
 // #define J_ENABLE_ON 0
 // #define K_ENABLE_ON 0
@@ -1771,7 +1769,7 @@
 // @section motion
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false // TODO:
+#define INVERT_X_DIR false
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR true
 // #define INVERT_I_DIR false
@@ -1784,7 +1782,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false // TODO: jak mamy direct drive
+#define INVERT_E0_DIR false
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1812,9 +1810,9 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR -1 // TODO:
+#define X_HOME_DIR -1
 #define Y_HOME_DIR -1
-#define Z_HOME_DIR -1 // TODO: dla probe jako czujnika
+#define Z_HOME_DIR -1
 // #define I_HOME_DIR -1
 // #define J_HOME_DIR -1
 // #define K_HOME_DIR -1
@@ -1825,8 +1823,8 @@
 // @section geometry
 
 // The size of the printable area
-#define BED_MOUNT_OFFSET 10                   // TODO: dodano samemu te linie // offset from edges of bed to prevent hitting the screws
-#define X_BED_SIZE 210 - 2 * BED_MOUNT_OFFSET // TODO: wszystkie nizej
+#define BED_MOUNT_OFFSET 10 // offset from edges of bed to prevent hitting the screws
+#define X_BED_SIZE 210 - 2 * BED_MOUNT_OFFSET
 #define Y_BED_SIZE 210 - 2 * BED_MOUNT_OFFSET
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
@@ -1903,7 +1901,7 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-// #define FILAMENT_RUNOUT_SENSOR // TODO: ?  raczej nie
+// #define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
 #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
 #define NUM_RUNOUT_SENSORS 1            // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
@@ -2005,7 +2003,7 @@
  */
 // #define AUTO_BED_LEVELING_3POINT
 // #define AUTO_BED_LEVELING_LINEAR
-#define AUTO_BED_LEVELING_BILINEAR // TODO:
+#define AUTO_BED_LEVELING_BILINEAR
 // #define AUTO_BED_LEVELING_UBL
 // #define MESH_BED_LEVELING
 
@@ -2020,7 +2018,7 @@
 /**
  * Auto-leveling needs preheating
  */
-// #define PREHEAT_BEFORE_LEVELING // TODO: jak w prusie mini
+// #define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
 #define LEVELING_NOZZLE_TEMP 170 // (°C) Only applies to E0 at this time
 #define LEVELING_BED_TEMP 50
@@ -2040,7 +2038,7 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-// #define DEBUG_LEVELING_FEATURE // TODO: COMMENT OUT
+// #define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
 // Set a height for the start of manual adjustment
@@ -2134,7 +2132,7 @@
 #elif ENABLED(MESH_BED_LEVELING)
 
 //===========================================================================
-//=================================== Mesh ================================== // TODO: potem jak ustawimy czujnik
+//=================================== Mesh ==================================
 //===========================================================================
 
 #define MESH_INSET 10       // Set Mesh bounds as an inset region of the bed
@@ -2149,7 +2147,7 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-#define LCD_BED_LEVELING // TODO: jak dodamy mesh bed leveling
+#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
 #define MESH_EDIT_Z_STEP 0.025 // (mm) Step size while manually probing Z axis.
@@ -2228,7 +2226,7 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-#define Z_SAFE_HOMING // TODO: tak bo bedzie homing with z-probe
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
 #define Z_SAFE_HOMING_X_POINT X_CENTER // X point for Z homing
@@ -2576,7 +2574,7 @@
  *
  * :{ 'en':'English', 'an':'Aragonese', 'bg':'Bulgarian', 'ca':'Catalan', 'cz':'Czech', 'da':'Danish', 'de':'German', 'el':'Greek (Greece)', 'el_CY':'Greek (Cyprus)', 'es':'Spanish', 'eu':'Basque-Euskera', 'fi':'Finnish', 'fr':'French', 'gl':'Galician', 'hr':'Croatian', 'hu':'Hungarian', 'it':'Italian', 'jp_kana':'Japanese', 'ko_KR':'Korean (South Korea)', 'nl':'Dutch', 'pl':'Polish', 'pt':'Portuguese', 'pt_br':'Portuguese (Brazilian)', 'ro':'Romanian', 'ru':'Russian', 'sk':'Slovak', 'sv':'Swedish', 'tr':'Turkish', 'uk':'Ukrainian', 'vi':'Vietnamese', 'zh_CN':'Chinese (Simplified)', 'zh_TW':'Chinese (Traditional)' }
  */
-#define LCD_LANGUAGE en // TODO: pl mozna
+#define LCD_LANGUAGE en
 
 /**
  * LCD Character Set
@@ -2662,7 +2660,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-#define REVERSE_ENCODER_DIRECTION // TODO: ??
+#define REVERSE_ENCODER_DIRECTION
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -2728,7 +2726,7 @@
 //
 // Note: Usually sold with a white PCB.
 //
-#define REPRAP_DISCOUNT_SMART_CONTROLLER // TODO:
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 //
 // GT2560 (YHCB2004) LCD Display
